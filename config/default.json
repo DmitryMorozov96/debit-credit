@@ -1,0 +1,10 @@
+{
+    "loginCreds": {
+        "user": "Test username",
+        "password": "Very strong password"
+    },
+    "serverCfg": {
+        "domain": "localhost",
+        "port": 3000
+    }
+}

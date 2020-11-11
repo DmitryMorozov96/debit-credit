@@ -1,0 +1,34 @@
+{
+  "name": "debit-credit",
+  "version": "1.0.0",
+  "description": "Debit and credit transactions application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "JS",
+    "NodeJS",
+    "VueJS"
+  ],
+  "author": "Dmitry Morozov",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.2",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DmitryMorozov96/debit-credit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DmitryMorozov96/debit-credit/issues"
+  },
+  "homepage": "https://github.com/DmitryMorozov96/debit-credit#readme"
+}
