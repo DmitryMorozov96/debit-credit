@@ -18,17 +18,42 @@ background: linear-gradient(30deg, rgba(9,101,121,0.7021009087228641) 0%, rgba(8
                 <input type="text" class="border border-dark rounded-sm" v-model="form.type" id="type">  
                 <label for="value" class="card-text">Value</label>
                 <input type="text" class="border border-dark rounded-sm" v-model="form.value" id="value">  
-                <button v-on:click="sendTrans" class="btn btn-primary">Send</button>
+                <button v-on:click="addTransaction" class="btn btn-primary">Send</button>
             </div>
-            <div v-for="trans in transactions" class="table table-dark rounded-sm">
-                <div class="border rounded-sm container pt-4" >
-                    {{ trans.id }} {{ trans.type }} {{ trans.value }}
-                </div>
-            </div>
+            <table class="table table-dark rounded-sm">
+                <tr v-for="trans in transactions">
+                    <td>
+                        {{ trans.id }}
+                    </td>
+                    <td>
+                        {{ trans.type }}
+                    </td>
+                    <td>
+                        {{ trans.value }}
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </body>
 <script>
+    async function request(url, method = 'GET', data = null) {
+        try {
+            const headers = {}
+            let body
+            
+            if (data) {
+                headers['Content-Type'] = 'application/json'
+                body = JSON.stringify(data)
+            }
+
+            const response = await fetch(url, {method, headers, body})
+            return await response.json()
+        } catch (e) {
+            console.warn('Error', e.message)
+        }
+    }
+
     const app = new Vue({
         el: '#app',
         data() {
@@ -41,14 +66,13 @@ background: linear-gradient(30deg, rgba(9,101,121,0.7021009087228641) 0%, rgba(8
                 transactions: []
             }
         },
+        async mounted() {
+            this.transactions = await request('/transactions')
+        },
         methods: {
-            sendTrans() {
+            async addTransaction() {
                 const values = this.form
-                this.transactions.push({
-                    id: values.id,
-                    type: values.type,
-                    value: values.value
-                })
+                this.transactions = await request('/transactions', 'POST', values)
             }
         }
     })
