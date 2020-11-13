@@ -15,12 +15,27 @@ background: linear-gradient(30deg, rgba(9,101,121,0.7021009087228641) 0%, rgba(8
                 <label for="ID" class="card-text">ID</label>
                 <input type="text" class="border border-dark rounded-sm" v-model="form.id" id="ID">  
                 <label for="type" class="card-text"> Type</label>
-                <input type="text" class="border border-dark rounded-sm" v-model="form.type" id="type">  
+                <select v-model="form.type" id="type" class="border border-dark rounded-sm">
+                    <option>Debit</option>
+                    <option>Credit</option>
+                  </select> 
                 <label for="value" class="card-text">Value</label>
                 <input type="text" class="border border-dark rounded-sm" v-model="form.value" id="value">  
                 <button v-on:click="addTransaction" class="btn btn-primary">Send</button>
+                <p> {{form.user.balance}}</p>
             </div>
             <table class="table table-dark rounded-sm">
+                <thead>
+                    <td>
+                        <p> Transaction ID</p>
+                    </td>
+                    <td>
+                        <p> Transaction type</p>
+                    </td>
+                    <td>
+                        <p> Transaction value</p>
+                    </td>
+                </thead>
                 <tr v-for="trans in transactions">
                     <td>
                         {{ trans.id }}
@@ -60,19 +75,26 @@ background: linear-gradient(30deg, rgba(9,101,121,0.7021009087228641) 0%, rgba(8
             return {
                 form: {
                     id: '',
-                    type: '',
-                    value: ''
+                    type: 'Debit',
+                    value: '',
+                    user: {
+                        balance: 0
+                    }
                 },
                 transactions: []
             }
         },
         async mounted() {
-            this.transactions = await request('/transactions')
+            const response = await request('/transactions')
+            this.transactions = response.transactions
+            this.form.user.balance = response.balance
         },
         methods: {
             async addTransaction() {
                 const values = this.form
-                this.transactions = await request('/transactions', 'POST', values)
+                const response = await request('/transactions', 'POST', values)
+                this.transactions = response.transactions
+                this.form.user.balance = response.balance
             }
         }
     })

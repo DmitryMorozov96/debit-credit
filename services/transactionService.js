@@ -1,14 +1,23 @@
 const Transaction = require('../models/transaction')
-let transactions = [{id: '1', type: 'debit', value: 'value'}]
+let transactions = []
+let balance = 0
 
 const addTransaction = (data) => {
     const transaction = new Transaction(data.id, data.type, data.value)
-    transactions.push(transaction)
-    return transactions
+    if (data.type === 'Debit') {
+        balance += Number.parseFloat(data.value)
+    }
+    else {
+        balance -= Number.parseFloat(data.value)
+    }
+    if (balance >= 0) {
+        transactions.push(transaction)
+        return {transactions, balance}
+    }
 }
 
 const getAllTransactions = () => {
-    return transactions
+    return {transactions, balance}
 }
 
 module.exports = {
