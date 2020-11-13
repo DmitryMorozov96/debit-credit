@@ -1,7 +1,7 @@
 const Transaction = require('../models/transaction')
 let transactions = []
 let balance = 0
-
+// TODO: SOME USER MODEL WITH BALANCES LIKE TRANSACTIONS
 const addTransaction = (data) => {
     const transaction = new Transaction(data.id, data.type, data.value)
     if (data.type === 'Debit') {
