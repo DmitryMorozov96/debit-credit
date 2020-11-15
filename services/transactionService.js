@@ -1,23 +1,24 @@
-const Transaction = require('../models/transaction')
+const Transaction = require('../models/transaction.js')
+const User = require('../models/user.js')
 let transactions = []
-let balance = 0
+let tstUser = new User('test', 'very stronk password', 'Samid', 'Babun', 0)
 // TODO: SOME USER MODEL WITH BALANCES LIKE TRANSACTIONS
 const addTransaction = (data) => {
     const transaction = new Transaction(data.id, data.type, data.value)
     if (data.type === 'Debit') {
-        balance += Number.parseFloat(data.value)
+        tstUser.setUserBalance(tstUser.getUserBalance() + Number.parseFloat(data.value))
     }
     else {
-        balance -= Number.parseFloat(data.value)
+        tstUser.setUserBalance(tstUser.getUserBalance() - Number.parseFloat(data.value))
     }
-    if (balance >= 0) {
+    if (tstUser.getUserBalance() >= 0) {
         transactions.push(transaction)
-        return {transactions, balance}
+        return {transactions, tstUser}
     }
 }
 
 const getAllTransactions = () => {
-    return {transactions, balance}
+    return {transactions, tstUser}
 }
 
 module.exports = {
