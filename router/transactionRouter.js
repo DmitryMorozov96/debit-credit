@@ -13,8 +13,7 @@ router.post('/transactions',  (req, res) => {
     res.status(200).json(result)
   }
   else {
-    res.status(400)
-    res.statusMessage = "Worng transaction"
+    res.status(400).send({ status: 400, error: 'Wrong transaction data' })
   }
 })
 
