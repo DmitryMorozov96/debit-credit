@@ -14,6 +14,7 @@ router.post('/transactions',  (req, res) => {
   }
   else {
     res.status(400)
+    res.statusMessage = "Worng transaction"
   }
 })
 

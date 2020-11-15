@@ -6,6 +6,9 @@ module.exports = class User {
         this.surname = surname
         this.balance = balance
     }
+    getUserName () {
+        return this.username
+    }
     getUserBalance () {
         return this.balance
     }

@@ -15,10 +15,7 @@
   "author": "Dmitry Morozov",
   "license": "ISC",
   "dependencies": {
-    "config": "^3.3.2",
-    "express": "^4.17.1",
-    "fs": "^0.0.1-security",
-    "path": "^0.12.7"
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"

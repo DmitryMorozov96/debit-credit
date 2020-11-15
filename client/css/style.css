@@ -1,0 +1,6 @@
+.defBg {
+    height: 100%;
+    background-repeat: no-repeat; 
+    background-attachment: fixed; background: rgb(9,101,121);
+    background: linear-gradient(30deg, rgba(9,101,121,0.7021009087228641) 0%, rgba(80,126,143,0.6124650543811274) 48%, rgba(84,74,154,0.7161065109637605) 100%);
+}
