@@ -13,9 +13,9 @@
 <body class="defBg">
     <div id = "app" class="container pt-5">
         <div class="shadow-sm p-3 mb-5 bg-light rounded">
-            <span class="col-sm"> Name: {{form.user.name}}</span>
-            <span class="col-sm"> Surname: {{form.user.surname}}</span>
-            <span class="col-sm"> Balance: {{form.user.balance}}</span>
+            <span class="col-sm" style="font-weight: bold;"> Name: {{form.user.name}}</span>
+            <span class="col-sm" style="font-weight: bold;"> Surname: {{form.user.surname}}</span>
+            <span class="col-sm d-flex justify-content-end" style="font-weight: bold; color: green;"> Balance: {{form.user.balance}}</span>
             <div>
                 <button class="btn btn-info" style="margin-top: 10pt;" type="button" data-toggle="collapse" data-target="#addTransaction">
                     Add Transaction
@@ -30,11 +30,9 @@
                         </select> 
                     <label for="value" class="card-text" style="margin-right: 10pt; margin-left: 10pt;">Value</label>
                     <input type="text" v-model="form.transaction.value" id="value">  
-                    <div>
-                        <label for="description" style="margin-right: 10pt; margin-left: 10pt;">Description</label>
-                        <textarea v-model="form.transaction.description" id="description"></textarea>
-                        <button v-on:click="addTransaction" class="btn btn-primary">Send Transaction</button>
-                    </div>
+                    <label for="description" style="margin-right: 10pt; margin-left: 10pt;">Description</label>
+                    <textarea v-model="form.transaction.description" id="description" style="width: 30%;"></textarea>
+                    <button v-on:click="addTransaction" class="btn btn-primary" style="margin: 10pt;">Send Transaction</button>
                 </div>
             </div>
         </div>

@@ -5,15 +5,19 @@ let tstUser = new User('morozov.dmitry', 'very strong password', 'Dmitry', 'Moro
 
 const addTransaction = (data) => {
     const transaction = new Transaction(data.id, data.type, data.value, tstUser.getUserName, data.description)
-    if (data.type === 'Debit') {
-        tstUser.setUserBalance(tstUser.getUserBalance() + Number.parseFloat(data.value))
-    }
-    else {
-        tstUser.setUserBalance(tstUser.getUserBalance() - Number.parseFloat(data.value))
-    }
-    if (tstUser.getUserBalance() >= 0) {
-        transactions.push(transaction)
-        return {transactions, tstUser}
+    if (Number.parseFloat(data.value) > 0) {
+        if (data.type === 'Debit') {
+            tstUser.setUserBalance(tstUser.getUserBalance() + Number.parseFloat(data.value))
+            transactions.push(transaction)
+            return {transactions, tstUser}
+        }
+        else {
+            if (tstUser.getUserBalance() >= data.value) {
+                tstUser.setUserBalance(tstUser.getUserBalance() - Number.parseFloat(data.value))
+                transactions.push(transaction)
+                return {transactions, tstUser}
+            }
+        }
     }
 }
 

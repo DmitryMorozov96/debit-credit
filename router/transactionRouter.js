@@ -4,16 +4,20 @@ const router = express.Router()
 
 
 router.get('/transactions', function (req, res) {
-  res.status(200).json(transactionService.getAllTransactions())
+  try {
+    res.send({status:200, data: transactionService.getAllTransactions()})
+  } catch (e) {
+    res.send()
+  }
 })
 
 router.post('/transactions',  (req, res) => {
   const result = transactionService.addTransaction(req.body)
   if (result) {
-    res.status(200).json(result)
+    res.send({ status: 200, data: result })
   }
   else {
-    res.status(400).send({ status: 400, error: 'Wrong transaction data' })
+    res.send({ status: 400, error: 'Wrong transaction data' })
   }
 })
 

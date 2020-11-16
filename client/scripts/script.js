@@ -23,29 +23,34 @@ const app = new Vue({
     },
     async mounted() {
         const response = await request('/transactions')
-        if (response.status === 200){
-            response.transactions && response.transactions.forEach(trs => {
+        if (response.status !== 200){
+            alert(response.error);
+        } else {
+            let trans = response.data.transactions
+            let user = response.data.tstUser
+            trans && trans.forEach(trs => {
                 trs.visible = false
             })
-            this.transactions = response.transactions
-            this.form.user = { name: response.tstUser.name, surname: response.tstUser.surname, balance: response.tstUser.balance }
-        } else {
-            alert(response.error);
+            this.transactions = trans
+            this.form.user = { name: user.name, surname: user.surname, balance:user.balance }
+
         }
     },
     methods: {
         async addTransaction() {
             const values = this.form.transaction
             const response = await request('/transactions', 'POST', values)
-            if (response.status === 200){
-                response.transactions && response.transactions.forEach(trs => {
-                    trs.visible = false
-                })
-                this.transactions = response.transactions
-                this.form.user = { name: response.tstUser.name, surname: response.tstUser.surname, balance: response.tstUser.balance }
+            if (response.status !== 200){
+                alert(response.error);
             }
             else {
-                alert(response.error);
+                let trans = response.data.transactions
+                let user = response.data.tstUser
+                trans && trans.forEach(trs => {
+                    trs.visible = false
+                })
+                this.transactions = trans
+                this.form.user = { name: user.name, surname: user.surname, balance:user.balance }    
             }
         }
     }
